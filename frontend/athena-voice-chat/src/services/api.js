@@ -19,6 +19,7 @@ export async function sendTextQuery(question, conversationHistory = []) {
     body: JSON.stringify({
       question,
       conversation_history: conversationHistory,
+      new_chat: conversationHistory.length === 0,
     }),
   });
 
@@ -47,6 +48,7 @@ export async function sendVoiceQuery(audioBase64, conversationHistory = [], mime
       audio_data: audioBase64,
       audio_format: mimeType,
       conversation_history: conversationHistory,
+      new_chat: conversationHistory.length === 0,
     }),
   });
 

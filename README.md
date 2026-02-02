@@ -187,8 +187,8 @@ export const API_BASE_URL = 'https://your-lambda-url/';
 ### Logs
 
 ```bash
-# View Lambda logs
-aws logs tail /aws/lambda/voxquery-handler --follow
+# Watch logs in real-time
+aws logs tail /aws/lambda/voxquery-handler --follow | cut -d' ' -f3-
 ```
 
 ## Cost Considerations

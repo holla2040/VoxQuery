@@ -75,10 +75,11 @@ def handle_text_query(body: dict) -> dict:
         return error_response(400, "Missing 'question' field")
 
     conversation_history = body.get("conversation_history", [])
+    new_chat = body.get("new_chat", False)
 
     try:
         # Generate SQL from question
-        sql_result = generate_sql(question, conversation_history)
+        sql_result = generate_sql(question, conversation_history, new_chat)
         sql = sql_result["sql"]
         visualization_type = sql_result["visualization_type"]
 
@@ -181,6 +182,7 @@ def handle_voice_query(body: dict) -> dict:
 
     audio_format = body.get("audio_format", "audio/webm")
     conversation_history = body.get("conversation_history", [])
+    new_chat = body.get("new_chat", False)
 
     try:
         # Transcribe audio
@@ -192,7 +194,8 @@ def handle_voice_query(body: dict) -> dict:
         # Process as text query
         result = handle_text_query({
             "question": transcript,
-            "conversation_history": conversation_history
+            "conversation_history": conversation_history,
+            "new_chat": new_chat
         })
 
         # Add transcript to response

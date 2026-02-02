@@ -65,13 +65,14 @@ def get_bedrock_client():
     )
 
 
-def generate_sql(question: str, conversation_history: list = None) -> dict:
+def generate_sql(question: str, conversation_history: list = None, new_chat: bool = False) -> dict:
     """
     Generate SQL from natural language question.
 
     Args:
         question: The user's natural language question
         conversation_history: Optional list of previous exchanges
+        new_chat: If True, ignore conversation history (first query of new chat)
 
     Returns:
         dict with keys:
@@ -80,9 +81,9 @@ def generate_sql(question: str, conversation_history: list = None) -> dict:
     """
     bedrock = get_bedrock_client()
 
-    # Format conversation context
+    # Format conversation context (skip if new_chat flag is set)
     context = ""
-    if conversation_history:
+    if conversation_history and not new_chat:
         context = "Previous conversation:\n"
         for exchange in conversation_history[-5:]:  # Last 5 exchanges
             context += f"User: {exchange.get('question', '')}\n"
@@ -94,6 +95,22 @@ def generate_sql(question: str, conversation_history: list = None) -> dict:
         conversation_context=context,
         question=question
     )
+
+    # DEBUG: Print the full prompt being sent to Bedrock
+    print("=" * 80)
+    print("DEBUG: BEDROCK PROMPT FOR SQL GENERATION")
+    print("=" * 80)
+    print(f"New chat: {new_chat}")
+    print(f"Conversation history count: {len(conversation_history) if conversation_history else 0}")
+    if conversation_history and not new_chat:
+        print(f"History entries: {json.dumps(conversation_history[-5:], indent=2)}")
+    elif new_chat:
+        print("History ignored (new_chat=True)")
+    print("-" * 40)
+    print("FULL PROMPT:")
+    print("-" * 40)
+    print(prompt)
+    print("=" * 80)
 
     try:
         response = bedrock.invoke_model(
