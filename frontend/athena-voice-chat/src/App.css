@@ -332,10 +332,10 @@ body {
 /* Results Panel */
 .results-panel {
   width: var(--results-panel-width);
-  height: 100%;
+  height: 100vh;
+  background-color: var(--bg-primary);
   display: flex;
   flex-direction: column;
-  background-color: var(--bg-primary);
   overflow: hidden;
 }
 
@@ -543,6 +543,89 @@ body {
   font-size: 0.75rem;
   border-top: 1px solid var(--border-color);
   background-color: var(--bg-secondary);
+}
+
+/* Results History Container */
+.results-history-container {
+  flex: 1;
+  min-height: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Individual Result Item */
+.result-history-item {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.result-history-item:last-child {
+  margin-bottom: 0;
+}
+
+/* Query Header */
+.result-query-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 12px 16px;
+  background-color: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-color);
+  gap: 12px;
+}
+
+.result-query-text {
+  color: var(--text-primary);
+  font-weight: 500;
+  flex: 1;
+  word-break: break-word;
+}
+
+.result-timestamp {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+/* Visualization Content */
+.result-visualization-content {
+  padding: 16px;
+}
+
+.result-visualization-content .map-container {
+  min-height: 600px;
+}
+
+.result-visualization-content .chart-container {
+  min-height: 400px;
+}
+
+/* Result Stats */
+.result-stats {
+  padding: 8px 16px;
+  text-align: right;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  border-top: 1px solid var(--border-color);
+  background-color: var(--bg-tertiary);
+}
+
+/* Loading and Error States */
+.result-loading-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.result-error-item .results-error {
+  padding: 20px;
 }
 
 /* Loading Spinner */
@@ -984,21 +1067,28 @@ body {
 
 /* Scrollbar Styles */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 14px;
+  height: 14px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-primary);
+  background: #2a2a4a;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--border-color);
-  border-radius: 4px;
+  background: #888;
+  border-radius: 7px;
+  border: 2px solid #2a2a4a;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-muted);
+  background: #aaa;
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: #888 #2a2a4a;
 }
 
 /* Responsive - Tablet */

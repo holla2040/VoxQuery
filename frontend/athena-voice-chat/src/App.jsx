@@ -17,7 +17,7 @@ function App() {
   // State
   const [messages, setMessages] = useState([]);
   const [conversationHistory, setConversationHistory] = useState([]);
-  const [result, setResult] = useState(null);
+  const [resultHistory, setResultHistory] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [isTranscribing, setIsTranscribing] = useState(false);
@@ -51,8 +51,12 @@ function App() {
       const response = await sendTextQuery(question, conversationHistory);
 
       if (response.success) {
-        // Update result
-        setResult(response);
+        // Append to result history
+        setResultHistory(prev => [...prev, {
+          ...response,
+          query: question,
+          timestamp: new Date().toISOString()
+        }]);
 
         // Add assistant message with summary
         const assistantMessage = {
@@ -93,7 +97,7 @@ function App() {
   const handleClearHistory = useCallback(() => {
     setMessages([]);
     setConversationHistory([]);
-    setResult(null);
+    setResultHistory([]);
     setError(null);
   }, []);
 
@@ -116,8 +120,12 @@ function App() {
         };
         setMessages(prev => [...prev, userMessage]);
 
-        // Update result
-        setResult(response);
+        // Append to result history
+        setResultHistory(prev => [...prev, {
+          ...response,
+          query: response.transcript,
+          timestamp: new Date().toISOString()
+        }]);
 
         // Add assistant message
         const assistantMessage = {
@@ -179,35 +187,12 @@ function App() {
 
         {/* Results Panel - Right side */}
         <ResultsPanel
-          result={result}
+          resultHistory={resultHistory}
           loading={loading}
           error={error}
-          // followUps={result?.follow_ups}
-          // onFollowUpClick={handleFollowUpClick}
-          mapComponent={
-            result?.visualization_type === 'MAP' && (
-              <MapResult
-                rows={result.rows}
-                mapConfig={result.map_config}
-              />
-            )
-          }
-          chartComponent={
-            result?.visualization_type === 'CHART' && (
-              <ChartResult
-                rows={result.rows}
-                columns={result.columns}
-                chartConfig={result.chart_config}
-              />
-            )
-          }
-          surfaceComponent={
-            result?.visualization_type === 'SURFACE' && (
-              <SurfaceResult
-                surfaceConfig={result.surface_config}
-              />
-            )
-          }
+          MapResult={MapResult}
+          ChartResult={ChartResult}
+          SurfaceResult={SurfaceResult}
         />
       </div>
     </div>

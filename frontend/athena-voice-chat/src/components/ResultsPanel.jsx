@@ -1,106 +1,105 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import TableResult from './TableResult';
 import LoadingSpinner from './LoadingSpinner';
 
 /**
- * Results panel component displaying query results
+ * Results panel component displaying scrolling query result history
  */
 export default function ResultsPanel({
-  result,
+  resultHistory,
   loading,
   error,
-  summary,
-  followUps,
-  onFollowUpClick,
-  sqlDisplay,
-  chartComponent,
-  mapComponent,
-  surfaceComponent
+  MapResult,
+  ChartResult,
+  SurfaceResult
 }) {
-  if (loading) {
+  const scrollRef = useRef(null);
+
+  // Auto-scroll to bottom when new results are added
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [resultHistory]);
+
+  // Render a single result item
+  const renderResultItem = (result, index) => {
+    const { visualization_type, columns, rows, query, timestamp, execution_time_ms, row_count, attempts } = result;
+
     return (
-      <div className="results-panel">
-        <div className="results-loading">
-          <LoadingSpinner message="Executing query..." />
+      <div key={`${timestamp}-${index}`} className="result-history-item">
+        {/* Query header */}
+        <div className="result-query-header">
+          <span className="result-query-text">{query}</span>
+          <span className="result-timestamp">
+            {new Date(timestamp).toLocaleTimeString()}
+          </span>
         </div>
+
+        {/* Visualization */}
+        <div className="result-visualization-content">
+          {visualization_type === 'MAP' && MapResult ? (
+            <MapResult
+              rows={rows}
+              mapConfig={result.map_config}
+            />
+          ) : visualization_type === 'CHART' && ChartResult ? (
+            <ChartResult
+              rows={rows}
+              columns={columns}
+              chartConfig={result.chart_config}
+            />
+          ) : visualization_type === 'SURFACE' && SurfaceResult ? (
+            <SurfaceResult
+              surfaceConfig={result.surface_config}
+            />
+          ) : (
+            <TableResult columns={columns} rows={rows} />
+          )}
+        </div>
+
+        {/* Execution Stats */}
+        {execution_time_ms > 0 && (
+          <div className="result-stats">
+            {row_count} rows in {execution_time_ms}ms
+            {attempts > 1 && ` (${attempts} attempts)`}
+          </div>
+        )}
       </div>
     );
-  }
-
-  if (error) {
-    return (
-      <div className="results-panel">
-        <div className="results-error">
-          <h3>Error</h3>
-          <p>{error}</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (!result) {
-    return (
-      <div className="results-panel">
-        <div className="results-empty">
-          <h3>No Results Yet</h3>
-          <p>Ask a question to see results here.</p>
-        </div>
-      </div>
-    );
-  }
-
-  const { visualization_type, columns, rows } = result;
+  };
 
   return (
     <div className="results-panel">
-      {/* Summary Section */}
-      {summary && (
-        <div className="results-summary">
-          <p>{summary}</p>
-        </div>
-      )}
+      <div className="results-history-container" ref={scrollRef}>
+        {/* Empty state */}
+        {resultHistory.length === 0 && !loading && !error && (
+          <div className="results-empty">
+            <h3>No Results Yet</h3>
+            <p>Ask a question to see results here.</p>
+          </div>
+        )}
 
-      {/* SQL Display */}
-      {sqlDisplay}
+        {/* Result history */}
+        {resultHistory.map((result, index) => renderResultItem(result, index))}
 
-      {/* Visualization */}
-      <div className="results-visualization">
-        {visualization_type === 'MAP' && mapComponent ? (
-          mapComponent
-        ) : visualization_type === 'CHART' && chartComponent ? (
-          chartComponent
-        ) : visualization_type === 'SURFACE' && surfaceComponent ? (
-          surfaceComponent
-        ) : (
-          <TableResult columns={columns} rows={rows} />
+        {/* Loading indicator */}
+        {loading && (
+          <div className="result-history-item result-loading-item">
+            <LoadingSpinner message="Executing query..." />
+          </div>
+        )}
+
+        {/* Error display */}
+        {error && (
+          <div className="result-history-item result-error-item">
+            <div className="results-error">
+              <h3>Error</h3>
+              <p>{error}</p>
+            </div>
+          </div>
         )}
       </div>
-
-      {/* Follow-up Suggestions */}
-      {followUps && followUps.length > 0 && (
-        <div className="follow-ups">
-          <h4>Follow-up questions:</h4>
-          <div className="follow-up-chips">
-            {followUps.map((question, index) => (
-              <button
-                key={index}
-                className="follow-up-chip"
-                onClick={() => onFollowUpClick(question)}
-              >
-                {question}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Execution Stats */}
-      {result.execution_time_ms > 0 && (
-        <div className="results-stats">
-          {result.row_count} rows in {result.execution_time_ms}ms
-          {result.attempts > 1 && ` (${result.attempts} attempts)`}
-        </div>
-      )}
     </div>
   );
 }

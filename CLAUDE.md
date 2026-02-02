@@ -25,7 +25,7 @@ npm run build            # Production build for /voxquery/ subdirectory
 # Build and deploy to server
 cd frontend/athena-voice-chat
 npm run build
-scp -r build/* user@your-server.com:/var/www/html/voxquery/
+rsync -avz frontend/athena-voice-chat/build/* o:/home/holla/hollabaugh/voxquery/
 ```
 
 ### Testing
