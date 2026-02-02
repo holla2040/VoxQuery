@@ -146,17 +146,30 @@ export default function useAudioRecorder() {
 
   /**
    * Check if browser supports audio recording
+   * Note: mediaDevices is only available in secure contexts (HTTPS or localhost)
    */
-  const isSupported = useCallback(() => {
-    return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
-  }, []);
+  const checkSupported = () => {
+    // Check for secure context
+    if (typeof window !== 'undefined' && window.isSecureContext === false) {
+      console.warn('Audio recording requires a secure context (HTTPS or localhost)');
+      return false;
+    }
+    // Check for mediaDevices API
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      console.warn('MediaDevices API not available');
+      return false;
+    }
+    return true;
+  };
+
+  const isSupported = checkSupported();
 
   return {
     state,
     error,
     isRecording: state === RecordingState.RECORDING,
     isProcessing: state === RecordingState.PROCESSING,
-    isSupported: isSupported(),
+    isSupported,
     startRecording,
     stopRecording,
     cancelRecording

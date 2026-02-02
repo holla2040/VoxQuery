@@ -59,8 +59,13 @@ export default function PTTButton({ onRecordingComplete, disabled = false }) {
   }, [handleMouseUp]);
 
   if (!isSupported) {
+    console.warn('PTTButton: Voice recording not supported. Check browser console for details.');
     return (
-      <button className="ptt-button ptt-unsupported" disabled title="Voice input not supported">
+      <button
+        className="ptt-button ptt-unsupported"
+        disabled
+        title="Voice input not supported - requires HTTPS or localhost"
+      >
         <MicOffIcon />
       </button>
     );
