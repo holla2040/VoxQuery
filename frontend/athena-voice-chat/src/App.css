@@ -396,7 +396,8 @@ body {
 /* Table Styles */
 .table-container {
   width: 100%;
-  overflow: auto;
+  overflow-x: auto;
+  overflow-y: visible;
 }
 
 .results-table {
@@ -549,12 +550,9 @@ body {
 .results-history-container {
   flex: 1;
   min-height: 0;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
   padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
 }
 
 /* Individual Result Item */
@@ -563,6 +561,7 @@ body {
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
   overflow: hidden;
+  margin-bottom: 24px;
 }
 
 .result-history-item:last-child {
