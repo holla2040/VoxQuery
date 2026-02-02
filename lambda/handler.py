@@ -9,7 +9,7 @@ import traceback
 
 from athena_service import execute_query, AthenaQueryError
 from bedrock_service import generate_sql, generate_summary, fix_failed_query
-from response_classifier import classify_response, get_chart_config, get_map_config
+from response_classifier import classify_response, get_chart_config, get_map_config, get_surface_config
 
 # Response headers (CORS handled by Lambda Function URL config)
 RESPONSE_HEADERS = {
@@ -146,6 +146,11 @@ def handle_text_query(body: dict) -> dict:
             )
         elif visualization_type == "MAP":
             response_data["map_config"] = get_map_config(results.get("columns", []))
+        elif visualization_type == "SURFACE":
+            response_data["surface_config"] = get_surface_config(
+                results.get("columns", []),
+                results.get("rows", [])
+            )
 
         return success_response(response_data)
 

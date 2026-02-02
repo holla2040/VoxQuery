@@ -14,7 +14,8 @@ export default function ResultsPanel({
   onFollowUpClick,
   sqlDisplay,
   chartComponent,
-  mapComponent
+  mapComponent,
+  surfaceComponent
 }) {
   if (loading) {
     return (
@@ -68,6 +69,8 @@ export default function ResultsPanel({
           mapComponent
         ) : visualization_type === 'CHART' && chartComponent ? (
           chartComponent
+        ) : visualization_type === 'SURFACE' && surfaceComponent ? (
+          surfaceComponent
         ) : (
           <TableResult columns={columns} rows={rows} />
         )}

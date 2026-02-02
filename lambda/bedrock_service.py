@@ -39,7 +39,8 @@ RULES:
 1. ALWAYS start with a SQL comment indicating visualization type:
    -- TABLE: For listing data, counts, or when no geographic/trend data
    -- MAP: ONLY when query returns latitude, longitude columns AND user asks about locations/geography
-   -- CHART: For aggregations that show comparisons (GROUP BY with COUNT, AVG, SUM)
+   -- CHART: For 2D aggregations (single GROUP BY with COUNT, AVG, SUM)
+   -- SURFACE: For 3D aggregations (two GROUP BY columns + one numeric aggregate, e.g., "salary by age and tenure")
 
 2. Use standard SQL compatible with AWS Athena (Presto)
 3. Always qualify table: voice_chat_db.employees
@@ -115,6 +116,8 @@ def generate_sql(question: str, conversation_history: list = None) -> dict:
             visualization_type = "MAP"
         elif sql.startswith("-- CHART"):
             visualization_type = "CHART"
+        elif sql.startswith("-- SURFACE"):
+            visualization_type = "SURFACE"
 
         return {
             "sql": sql,

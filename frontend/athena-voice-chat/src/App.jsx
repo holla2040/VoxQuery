@@ -4,6 +4,7 @@ import ChatInput from './components/ChatInput';
 import ResultsPanel from './components/ResultsPanel';
 import MapResult from './components/MapResult';
 import ChartResult from './components/ChartResult';
+import SurfaceResult from './components/SurfaceResult';
 import PTTButton from './components/PTTButton';
 import { sendTextQuery, sendVoiceQuery } from './services/api';
 import { MAX_CONVERSATION_HISTORY } from './config';
@@ -181,6 +182,13 @@ function App() {
                 rows={result.rows}
                 columns={result.columns}
                 chartConfig={result.chart_config}
+              />
+            )
+          }
+          surfaceComponent={
+            result?.visualization_type === 'SURFACE' && (
+              <SurfaceResult
+                surfaceConfig={result.surface_config}
               />
             )
           }
