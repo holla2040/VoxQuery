@@ -21,6 +21,17 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [isTranscribing, setIsTranscribing] = useState(false);
+  const [queryHistory, setQueryHistory] = useState([]);
+
+  // Add query to history (avoid consecutive duplicates)
+  const addToQueryHistory = useCallback((query) => {
+    setQueryHistory(prev => {
+      if (prev.length === 0 || prev[0] !== query) {
+        return [query, ...prev];
+      }
+      return prev;
+    });
+  }, []);
 
   // Handle text query submission
   const handleSubmit = useCallback(async (question) => {
@@ -146,17 +157,23 @@ function App() {
         <ChatPanel
           messages={messages}
           onClearHistory={handleClearHistory}
+          onSubmit={handleSubmit}
+          onAddToHistory={addToQueryHistory}
         >
           <ChatInput
             onSubmit={handleSubmit}
             disabled={loading || isTranscribing}
             placeholder="Ask a question about employees..."
+            queryHistory={queryHistory}
+            onAddToHistory={addToQueryHistory}
+            /* Voice button temporarily disabled
             voiceButton={
               <PTTButton
                 onRecordingComplete={handleRecordingComplete}
                 disabled={loading || isTranscribing}
               />
             }
+            */
           />
         </ChatPanel>
 
@@ -165,9 +182,8 @@ function App() {
           result={result}
           loading={loading}
           error={error}
-          summary={result?.summary}
-          followUps={result?.follow_ups}
-          onFollowUpClick={handleFollowUpClick}
+          // followUps={result?.follow_ups}
+          // onFollowUpClick={handleFollowUpClick}
           mapComponent={
             result?.visualization_type === 'MAP' && (
               <MapResult

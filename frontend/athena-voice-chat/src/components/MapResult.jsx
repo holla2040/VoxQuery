@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, Tooltip, useMap } from 'react-leaflet';
 import L from 'leaflet';
 
 // Fix Leaflet default icon issue with webpack
@@ -80,6 +80,9 @@ export default function MapResult({ rows, mapConfig }) {
               parseFloat(row[lon_column])
             ]}
           >
+            <Tooltip permanent={false} direction="top" offset={[0, -35]}>
+              {getMarkerLabel(row)}
+            </Tooltip>
             <Popup>
               <PopupContent row={row} fields={popup_fields} />
             </Popup>
@@ -136,4 +139,37 @@ function formatValue(value) {
     return num.toLocaleString();
   }
   return String(value);
+}
+
+/**
+ * Get a label for the marker tooltip
+ * Looks for name fields in common patterns
+ */
+function getMarkerLabel(row) {
+  // Try first_name + last_name
+  if (row.first_name && row.last_name) {
+    return `${row.first_name} ${row.last_name}`;
+  }
+  // Try name field
+  if (row.name) {
+    return row.name;
+  }
+  // Try full_name field
+  if (row.full_name) {
+    return row.full_name;
+  }
+  // Fallback: find first string field that looks like a name
+  const nameKeys = Object.keys(row).filter(k =>
+    k.toLowerCase().includes('name') &&
+    !['latitude', 'longitude'].includes(k.toLowerCase())
+  );
+  if (nameKeys.length > 0) {
+    return row[nameKeys[0]];
+  }
+  // Last resort: city or first non-coordinate field
+  if (row.city) return row.city;
+  const firstKey = Object.keys(row).find(k =>
+    !['latitude', 'longitude', 'lat', 'lon', 'lng'].includes(k.toLowerCase())
+  );
+  return firstKey ? row[firstKey] : 'Location';
 }

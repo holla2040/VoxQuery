@@ -43,7 +43,11 @@ def classify_response(sql: str, columns: list = None, rows: list = None) -> str:
         return "TABLE"
 
     if first_line.startswith('-- CHART'):
-        # Verify we have chartable data
+        # If explicit chart type (LINE/BAR) is specified, trust it
+        if 'CHART:LINE' in first_line or 'CHART:BAR' in first_line:
+            if columns and len(columns) >= 2:
+                return "CHART"
+        # Otherwise verify we have chartable data
         if columns and is_chartable(columns, rows):
             return "CHART"
         return "TABLE"
@@ -202,7 +206,7 @@ def is_chartable(columns: list, rows: list) -> bool:
     return False
 
 
-def get_chart_config(columns: list, rows: list) -> dict:
+def get_chart_config(columns: list, rows: list, sql: str = None) -> dict:
     """
     Generate chart configuration based on data.
 
@@ -234,12 +238,24 @@ def get_chart_config(columns: list, rows: list) -> dict:
             x_column = col
             break
 
-    # Determine chart type
-    # Use line chart for time-based data, bar for categories
+    # Determine chart type from SQL comment first
     chart_type = "bar"
-    time_patterns = ['date', 'month', 'year', 'quarter', 'week', 'day']
-    if any(pattern in x_column.lower() for pattern in time_patterns):
-        chart_type = "line"
+    if sql:
+        first_line = sql.strip().split('\n')[0].upper()
+        if 'CHART:LINE' in first_line or 'CHART: LINE' in first_line:
+            chart_type = "line"
+        elif 'CHART:BAR' in first_line or 'CHART: BAR' in first_line:
+            chart_type = "bar"
+        else:
+            # Fall back to time-based detection
+            time_patterns = ['date', 'month', 'year', 'quarter', 'week', 'day']
+            if any(pattern in x_column.lower() for pattern in time_patterns):
+                chart_type = "line"
+    else:
+        # Use line chart for time-based data, bar for categories
+        time_patterns = ['date', 'month', 'year', 'quarter', 'week', 'day']
+        if any(pattern in x_column.lower() for pattern in time_patterns):
+            chart_type = "line"
 
     return {
         "type": chart_type,

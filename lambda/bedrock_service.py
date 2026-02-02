@@ -39,8 +39,10 @@ RULES:
 1. ALWAYS start with a SQL comment indicating visualization type:
    -- TABLE: For listing data, counts, or when no geographic/trend data
    -- MAP: ONLY when query returns latitude, longitude columns AND user asks about locations/geography
-   -- CHART: For 2D aggregations (single GROUP BY with COUNT, AVG, SUM)
-   -- SURFACE: For 3D aggregations (two GROUP BY columns + one numeric aggregate, e.g., "salary by age and tenure")
+   -- CHART: For 2D aggregations (single GROUP BY with COUNT, AVG, SUM) - defaults to bar chart
+   -- CHART:LINE: Use when user explicitly asks for a line chart or for time-series data
+   -- CHART:BAR: Use when user explicitly asks for a bar chart
+   -- SURFACE: For 3D aggregations (two GROUP BY columns + one numeric aggregate)
 
 2. Use standard SQL compatible with AWS Athena (Presto)
 3. Always qualify table: voice_chat_db.employees

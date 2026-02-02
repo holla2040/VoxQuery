@@ -142,7 +142,8 @@ def handle_text_query(body: dict) -> dict:
         if visualization_type == "CHART":
             response_data["chart_config"] = get_chart_config(
                 results.get("columns", []),
-                results.get("rows", [])
+                results.get("rows", []),
+                sql
             )
         elif visualization_type == "MAP":
             response_data["map_config"] = get_map_config(results.get("columns", []))
