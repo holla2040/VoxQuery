@@ -1,0 +1,201 @@
+employee_id,first_name,last_name,email,department,job_title,salary,hire_date,city,state,latitude,longitude,status
+1,Jessica,Anderson,jessica.anderson@gmail.com,Sales,Sales Representative,86752,2017-09-30,Austin,Texas,30.28487,-97.703882,active
+2,Susan,Anderson,susan.anderson@outlook.com,Product,Product Manager,134330,2019-04-04,Los Angeles,California,34.073802,-118.223568,active
+3,Timothy,Hernandez,timothy.hernandez@outlook.com,Design,Product Designer,111771,2021-04-07,San Francisco,California,37.752687,-122.447869,active
+4,Daniel,Thompson,daniel.thompson@outlook.com,Engineering,Engineering Manager,181863,2023-01-15,Los Angeles,California,34.048142,-118.281217,inactive
+5,Laura,White,laura.white@outlook.com,Engineering,Staff Engineer,172018,2023-11-07,Portland,Oregon,45.531326,-122.651093,inactive
+6,Sarah,Robinson,sarah.robinson@outlook.com,HR,HR Specialist,107232,2016-08-26,Chicago,Illinois,41.844365,-87.644273,active
+7,Kenneth,Hernandez,kenneth.hernandez@outlook.com,Sales,Sales Representative,95832,2017-10-30,Portland,Oregon,45.48154,-122.690454,inactive
+8,Rebecca,Brown,rebecca.brown@gmail.com,Sales,Account Executive,85015,2016-10-15,Denver,Colorado,39.769705,-105.000184,active
+9,Michelle,Young,michelle.young@yahoo.com,Finance,Finance Manager,144832,2018-10-18,New York,New York,40.676763,-73.981501,active
+10,Margaret,White,margaret.white@gmail.com,Sales,Enterprise Account Executive,93290,2024-06-15,Portland,Oregon,45.514552,-122.652822,active
+11,Joshua,Jones,joshua.jones@yahoo.com,Engineering,Senior Software Engineer,193665,2021-09-22,Chicago,Illinois,41.881011,-87.582692,active
+12,Carol,Wright,carol.wright@yahoo.com,Engineering,Data Engineer,158126,2017-05-21,Los Angeles,California,34.036218,-118.26435,active
+13,Steven,Lopez,steven.lopez@outlook.com,Engineering,Data Engineer,150871,2024-10-24,Austin,Texas,30.27973,-97.708933,active
+14,Paul,King,paul.king@gmail.com,Engineering,Staff Engineer,164770,2019-04-16,Seattle,Washington,47.567387,-122.345802,inactive
+15,Jessica,Torres,jessica.torres@gmail.com,HR,HR Manager,121516,2025-01-17,San Francisco,California,37.822698,-122.416129,active
+16,Dorothy,Hill,dorothy.hill@yahoo.com,Sales,Account Executive,123249,2023-08-19,Austin,Texas,30.27113,-97.720107,active
+17,Dorothy,Lewis,dorothy.lewis@gmail.com,Product,Product Director,129536,2023-03-24,Boston,Massachusetts,42.312203,-71.053508,active
+18,Joseph,Jones,joseph.jones@gmail.com,Engineering,Data Engineer,140840,2016-05-13,San Francisco,California,37.731986,-122.4456,active
+19,Andrew,Walker,andrew.walker@gmail.com,Engineering,Senior Software Engineer,191390,2017-03-17,Portland,Oregon,45.484241,-122.718707,active
+20,Carol,Miller,carol.miller@gmail.com,Product,Technical Product Manager,182075,2021-06-28,San Francisco,California,37.811067,-122.444534,active
+21,Sarah,Robinson,sarah.robinson@gmail.com,Design,Design Lead,109619,2016-03-14,Seattle,Washington,47.600513,-122.295965,active
+22,Jennifer,Thomas,jennifer.thomas@gmail.com,Engineering,DevOps Engineer,135749,2021-06-13,San Francisco,California,37.773036,-122.382935,inactive
+23,Thomas,Robinson,thomas.robinson@yahoo.com,Engineering,Software Engineer,150133,2021-04-06,Chicago,Illinois,41.923832,-87.580258,active
+24,Charles,Wilson,charles.wilson@gmail.com,Sales,Account Executive,122959,2019-07-06,New York,New York,40.71702,-73.981202,active
+25,Steven,Garcia,steven.garcia@gmail.com,Marketing,Content Strategist,101543,2025-03-28,San Francisco,California,37.731696,-122.383218,active
+26,Joshua,Williams,joshua.williams@outlook.com,Operations,Business Analyst,80474,2025-02-01,Portland,Oregon,45.530937,-122.671877,active
+27,Jessica,Taylor,jessica.taylor@yahoo.com,Engineering,Data Engineer,138671,2024-07-15,Denver,Colorado,39.75375,-104.994578,inactive
+28,Donna,Torres,donna.torres@gmail.com,Operations,Operations Manager,108626,2025-03-08,Boston,Massachusetts,42.33662,-71.015574,active
+29,David,Lewis,david.lewis@outlook.com,Finance,Finance Manager,142704,2018-02-12,Austin,Texas,30.315923,-97.727702,active
+30,William,Taylor,william.taylor@gmail.com,HR,Recruiter,95102,2024-10-21,Los Angeles,California,34.017745,-118.265524,active
+31,Ashley,Taylor,ashley.taylor@gmail.com,Product,Product Director,165957,2024-12-20,Miami,Florida,25.739368,-80.241445,active
+32,Melissa,Lewis,melissa.lewis@outlook.com,Marketing,Growth Manager,139508,2018-02-03,Seattle,Washington,47.567387,-122.287595,active
+33,Emily,Scott,emily.scott@gmail.com,Engineering,Software Engineer,113064,2021-03-09,Denver,Colorado,39.693383,-105.003835,inactive
+34,Susan,Thomas,susan.thomas@outlook.com,Operations,Operations Manager,102937,2024-11-07,Denver,Colorado,39.777613,-104.999662,active
+35,Stephanie,Lopez,stephanie.lopez@yahoo.com,Engineering,Senior Software Engineer,138171,2025-09-23,Seattle,Washington,47.589419,-122.289018,active
+36,David,Miller,david.miller@yahoo.com,Finance,Senior Accountant,129105,2016-03-23,Austin,Texas,30.239443,-97.711441,active
+37,Mary,Gonzalez,mary.gonzalez@yahoo.com,Product,Senior Product Manager,153053,2022-04-29,New York,New York,40.759489,-74.028088,active
+38,Linda,Taylor,linda.taylor@gmail.com,Product,Product Director,143451,2019-06-30,San Francisco,California,37.784557,-122.434831,active
+39,Andrew,Gonzalez,andrew.gonzalez@yahoo.com,Design,UX Designer,123184,2025-07-05,Chicago,Illinois,41.871706,-87.627808,active
+40,Betty,Jones,betty.jones@outlook.com,Sales,Account Executive,107197,2022-04-21,Denver,Colorado,39.720592,-104.955498,active
+41,Christopher,Sanchez,christopher.sanchez@outlook.com,Product,Product Director,158888,2022-09-09,Chicago,Illinois,41.870145,-87.585764,active
+42,Kimberly,Smith,kimberly.smith@yahoo.com,Finance,Finance Manager,117635,2022-10-15,Chicago,Illinois,41.886098,-87.614329,active
+43,Donald,Hernandez,donald.hernandez@outlook.com,Design,Senior UX Designer,125065,2025-01-20,Miami,Florida,25.774994,-80.208281,active
+44,Stephanie,Gonzalez,stephanie.gonzalez@gmail.com,Sales,Sales Manager,73543,2025-09-24,New York,New York,40.710314,-73.971026,active
+45,Ashley,Sanchez,ashley.sanchez@gmail.com,Product,Senior Product Manager,176407,2024-05-08,Chicago,Illinois,41.917366,-87.593756,active
+46,Stephanie,King,stephanie.king@yahoo.com,Sales,Account Executive,93461,2025-06-11,Seattle,Washington,47.58112,-122.297266,active
+47,Donna,Allen,donna.allen@yahoo.com,HR,Recruiter,119113,2016-09-09,Boston,Massachusetts,42.354691,-71.092984,active
+48,Deborah,King,deborah.king@yahoo.com,Design,Senior UX Designer,135140,2018-12-23,Austin,Texas,30.224948,-97.764527,active
+49,Elizabeth,Anderson,elizabeth.anderson@yahoo.com,Product,Product Manager,151046,2018-03-23,Seattle,Washington,47.562623,-122.34134,active
+50,Matthew,Nguyen,matthew.nguyen@outlook.com,Product,Senior Product Manager,178676,2025-10-14,Chicago,Illinois,41.875798,-87.585526,active
+51,Melissa,Wright,melissa.wright@outlook.com,Product,Technical Product Manager,153197,2023-07-14,Miami,Florida,25.755284,-80.238898,active
+52,Rebecca,Robinson,rebecca.robinson@gmail.com,Sales,Enterprise Account Executive,111193,2019-01-11,Seattle,Washington,47.558897,-122.342698,active
+53,William,Robinson,william.robinson@gmail.com,Engineering,Data Engineer,108980,2025-06-11,Chicago,Illinois,41.86601,-87.658634,active
+54,Timothy,Clark,timothy.clark@yahoo.com,Sales,Enterprise Account Executive,88714,2016-08-23,Austin,Texas,30.264231,-97.718198,active
+55,Deborah,Williams,deborah.williams@gmail.com,Operations,Business Analyst,71629,2023-03-27,Los Angeles,California,34.086123,-118.231566,active
+56,Susan,Robinson,susan.robinson@outlook.com,Design,UX Designer,134127,2023-02-18,Portland,Oregon,45.50209,-122.667811,inactive
+57,Michael,Nguyen,michael.nguyen@gmail.com,Sales,Account Executive,103477,2022-07-05,Austin,Texas,30.284935,-97.697283,active
+58,Brian,Thomas,brian.thomas@gmail.com,Sales,Sales Representative,129337,2018-03-10,Portland,Oregon,45.495358,-122.659974,active
+59,Paul,Ramirez,paul.ramirez@outlook.com,HR,HR Specialist,72234,2021-11-07,Denver,Colorado,39.739796,-105.006177,active
+60,Lisa,Robinson,lisa.robinson@outlook.com,HR,HR Specialist,88931,2024-04-16,Chicago,Illinois,41.845714,-87.627625,active
+61,Betty,Nguyen,betty.nguyen@yahoo.com,Marketing,Marketing Analyst,87183,2022-05-23,Boston,Massachusetts,42.393173,-71.100234,active
+62,Donna,Harris,donna.harris@yahoo.com,Engineering,Engineering Manager,168911,2025-09-07,Portland,Oregon,45.483384,-122.707188,active
+63,James,King,james.king@gmail.com,Product,Product Director,138622,2025-01-17,Miami,Florida,25.760558,-80.165984,active
+64,Ronald,Johnson,ronald.johnson@gmail.com,Sales,Enterprise Account Executive,79672,2022-09-15,Boston,Massachusetts,42.35054,-71.084569,active
+65,Melissa,Scott,melissa.scott@yahoo.com,Product,Product Director,181258,2022-01-22,Chicago,Illinois,41.858762,-87.656746,active
+66,Susan,Walker,susan.walker@yahoo.com,Product,Senior Product Manager,197149,2017-11-18,New York,New York,40.715264,-74.0277,active
+67,Barbara,Martin,barbara.martin@gmail.com,Engineering,Senior Software Engineer,177252,2018-01-24,Denver,Colorado,39.693752,-105.034847,active
+68,Laura,Smith,laura.smith@outlook.com,Operations,Operations Coordinator,90575,2022-10-26,Los Angeles,California,34.050071,-118.259629,inactive
+69,Edward,Jones,edward.jones@yahoo.com,Engineering,Engineering Manager,141572,2020-06-28,Los Angeles,California,34.070845,-118.278527,active
+70,Linda,Scott,linda.scott@yahoo.com,Operations,Operations Manager,141620,2019-03-17,New York,New York,40.685369,-74.003743,active
+71,Andrew,Flores,andrew.flores@gmail.com,Design,Design Lead,144271,2019-03-03,Austin,Texas,30.227123,-97.716826,active
+72,Jessica,Lopez,jessica.lopez@outlook.com,Engineering,Software Engineer,103027,2025-03-01,Seattle,Washington,47.556468,-122.33705,active
+73,Amanda,Jackson,amanda.jackson@outlook.com,Product,Senior Product Manager,168517,2016-05-14,Austin,Texas,30.240542,-97.766645,active
+74,Linda,Wright,linda.wright@gmail.com,Marketing,Content Strategist,91807,2018-09-29,Chicago,Illinois,41.918941,-87.597137,active
+75,Melissa,Torres,melissa.torres@yahoo.com,Engineering,Staff Engineer,142003,2021-01-30,Portland,Oregon,45.495609,-122.688149,active
+76,Joshua,Williams,joshua.williams@yahoo.com,Marketing,Marketing Analyst,106092,2017-10-08,Los Angeles,California,34.062571,-118.291114,active
+77,Andrew,Williams,andrew.williams@gmail.com,Sales,Sales Representative,105094,2020-09-23,Austin,Texas,30.282351,-97.701493,active
+78,Donald,Thompson,donald.thompson@yahoo.com,Marketing,Marketing Analyst,92505,2022-04-08,Los Angeles,California,34.069213,-118.207927,active
+79,Edward,Scott,edward.scott@gmail.com,Sales,Sales Manager,92298,2020-11-27,Chicago,Illinois,41.860427,-87.582782,active
+80,Sandra,Clark,sandra.clark@gmail.com,Design,UX Designer,115534,2023-11-26,Miami,Florida,25.747878,-80.166156,active
+81,Kimberly,Rodriguez,kimberly.rodriguez@yahoo.com,Sales,Account Executive,127718,2021-02-03,Austin,Texas,30.287025,-97.780957,inactive
+82,Karen,Scott,karen.scott@gmail.com,Marketing,Content Strategist,105576,2019-10-24,Seattle,Washington,47.565521,-122.282874,inactive
+83,Ashley,Jackson,ashley.jackson@outlook.com,Design,UX Designer,116910,2018-02-04,Seattle,Washington,47.597749,-122.33385,active
+84,Richard,Hill,richard.hill@outlook.com,Design,Senior UX Designer,140605,2017-08-21,Chicago,Illinois,41.855725,-87.600799,active
+85,Charles,Martin,charles.martin@outlook.com,Operations,Project Manager,132479,2019-07-03,San Francisco,California,37.769555,-122.420966,active
+86,Christopher,Gonzalez,christopher.gonzalez@outlook.com,Sales,Enterprise Account Executive,100757,2023-04-30,Boston,Massachusetts,42.348397,-71.023299,active
+87,Matthew,Martinez,matthew.martinez@yahoo.com,Product,Technical Product Manager,122785,2025-08-04,Chicago,Illinois,41.887118,-87.59283,active
+88,George,Martinez,george.martinez@yahoo.com,Design,Design Lead,147475,2016-03-28,San Francisco,California,37.821896,-122.461917,active
+89,Michelle,Garcia,michelle.garcia@yahoo.com,Engineering,DevOps Engineer,163133,2016-06-12,Chicago,Illinois,41.914034,-87.641799,active
+90,John,Flores,john.flores@gmail.com,Sales,Enterprise Account Executive,104508,2023-05-17,Miami,Florida,25.78014,-80.213062,active
+91,Mark,Hernandez,mark.hernandez@outlook.com,Engineering,Software Engineer,159529,2022-08-25,Los Angeles,California,34.005095,-118.261263,active
+92,Jessica,King,jessica.king@yahoo.com,Product,Technical Product Manager,195472,2019-08-29,Seattle,Washington,47.573198,-122.374203,active
+93,Emily,Martinez,emily.martinez@gmail.com,Marketing,Content Strategist,117569,2020-11-01,Boston,Massachusetts,42.335498,-71.083367,active
+94,David,Jones,david.jones@yahoo.com,HR,Recruiter,105383,2022-02-17,Miami,Florida,25.741615,-80.145597,active
+95,Matthew,Walker,matthew.walker@gmail.com,Design,Product Designer,108220,2023-05-07,New York,New York,40.719992,-73.998519,inactive
+96,James,Torres,james.torres@outlook.com,Product,Technical Product Manager,213057,2017-04-12,Austin,Texas,30.308262,-97.718583,active
+97,Stephanie,Thompson,stephanie.thompson@gmail.com,Finance,Senior Accountant,130865,2018-11-13,Portland,Oregon,45.532976,-122.656307,active
+98,Karen,Lewis,karen.lewis@gmail.com,HR,HR Specialist,98661,2019-07-05,San Francisco,California,37.798136,-122.460387,active
+99,William,Wright,william.wright@yahoo.com,Sales,Account Executive,106000,2020-01-20,New York,New York,40.754149,-73.972953,active
+100,Melissa,Perez,melissa.perez@gmail.com,HR,HR Business Partner,75944,2020-10-02,Austin,Texas,30.231276,-97.69645,active
+101,Lisa,Garcia,lisa.garcia@yahoo.com,Sales,Enterprise Account Executive,73046,2025-11-06,Miami,Florida,25.765357,-80.196321,active
+102,Michael,Anderson,michael.anderson@yahoo.com,Sales,Enterprise Account Executive,96686,2025-09-22,Denver,Colorado,39.777623,-104.984159,inactive
+103,Brian,Martin,brian.martin@outlook.com,Engineering,Software Engineer,111635,2021-06-05,Boston,Massachusetts,42.324078,-71.014274,active
+104,Paul,Rodriguez,paul.rodriguez@yahoo.com,Design,UX Designer,114831,2020-12-01,New York,New York,40.729849,-73.981686,inactive
+105,Michelle,Miller,michelle.miller@yahoo.com,Product,Senior Product Manager,176049,2019-02-07,Chicago,Illinois,41.856074,-87.610772,active
+106,Michael,White,michael.white@outlook.com,Design,Senior UX Designer,141353,2018-10-10,Denver,Colorado,39.716788,-104.943479,inactive
+107,Michelle,Hill,michelle.hill@gmail.com,HR,HR Specialist,78803,2025-06-09,New York,New York,40.687157,-74.043408,active
+108,Emily,Wilson,emily.wilson@gmail.com,Engineering,DevOps Engineer,152050,2022-04-28,New York,New York,40.677555,-73.965947,active
+109,Paul,Taylor,paul.taylor@gmail.com,Finance,Senior Accountant,159570,2024-10-09,Seattle,Washington,47.56938,-122.346276,active
+110,Thomas,Brown,thomas.brown@gmail.com,Marketing,Marketing Manager,139537,2017-09-08,Seattle,Washington,47.630767,-122.334475,active
+111,Steven,Anderson,steven.anderson@outlook.com,Design,UX Designer,124361,2025-07-09,Boston,Massachusetts,42.388423,-71.022202,active
+112,Donald,Sanchez,donald.sanchez@yahoo.com,Design,UX Designer,105417,2018-04-24,San Francisco,California,37.773927,-122.37843,active
+113,Robert,Rodriguez,robert.rodriguez@yahoo.com,Engineering,DevOps Engineer,152752,2019-01-02,Seattle,Washington,47.614736,-122.310885,active
+114,Steven,Hill,steven.hill@yahoo.com,Marketing,Growth Manager,133198,2024-11-22,Boston,Massachusetts,42.375571,-71.021129,active
+115,Joseph,Clark,joseph.clark@yahoo.com,Finance,Controller,127821,2016-09-22,Boston,Massachusetts,42.349973,-71.035939,active
+116,Elizabeth,Walker,elizabeth.walker@gmail.com,Product,Product Director,173107,2024-12-25,Denver,Colorado,39.732388,-104.965841,active
+117,Kimberly,Scott,kimberly.scott@yahoo.com,Engineering,Software Engineer,120810,2018-06-29,Portland,Oregon,45.506281,-122.641039,inactive
+118,Joshua,Martin,joshua.martin@yahoo.com,Product,Product Manager,163649,2024-11-04,Austin,Texas,30.232673,-97.744881,active
+119,Timothy,Moore,timothy.moore@outlook.com,Product,Product Director,185175,2023-06-21,Los Angeles,California,34.058297,-118.216957,active
+120,Kevin,Moore,kevin.moore@gmail.com,Sales,Sales Representative,79221,2023-12-26,Portland,Oregon,45.53547,-122.697502,active
+121,Kevin,Sanchez,kevin.sanchez@gmail.com,Engineering,Senior Software Engineer,188840,2024-05-31,Portland,Oregon,45.468266,-122.653789,active
+122,Lisa,Martin,lisa.martin@outlook.com,Product,Product Director,199842,2022-05-15,Seattle,Washington,47.615822,-122.293766,active
+123,Sarah,Lewis,sarah.lewis@outlook.com,Sales,Sales Representative,101343,2021-04-02,Los Angeles,California,34.062908,-118.252282,active
+124,Linda,Jackson,linda.jackson@outlook.com,Design,Product Designer,136958,2018-05-25,Chicago,Illinois,41.876763,-87.613087,active
+125,Susan,Martin,susan.martin@gmail.com,Product,Product Manager,153236,2017-05-26,San Francisco,California,37.753845,-122.457402,active
+126,Paul,Anderson,paul.anderson@outlook.com,Design,Senior UX Designer,191906,2019-09-28,Chicago,Illinois,41.863517,-87.640093,active
+127,Laura,Lee,laura.lee@outlook.com,Design,Design Lead,127273,2021-03-11,Los Angeles,California,34.042642,-118.229686,active
+128,Stephanie,Flores,stephanie.flores@yahoo.com,Product,Product Director,208431,2016-09-04,Seattle,Washington,47.565013,-122.297652,active
+129,Laura,Martin,laura.martin@outlook.com,Marketing,Marketing Manager,106059,2022-03-14,Chicago,Illinois,41.844913,-87.628752,active
+130,George,Martinez,george.martinez@gmail.com,Design,Product Designer,88303,2024-11-07,Denver,Colorado,39.714797,-105.02295,active
+131,Deborah,Young,deborah.young@yahoo.com,Sales,Sales Representative,117587,2017-07-18,Seattle,Washington,47.632188,-122.337209,inactive
+132,Elizabeth,Lewis,elizabeth.lewis@gmail.com,Marketing,Growth Manager,134039,2020-09-30,Denver,Colorado,39.768833,-104.981158,active
+133,John,Brown,john.brown@yahoo.com,Engineering,Engineering Manager,160486,2016-09-05,Boston,Massachusetts,42.396525,-71.023371,active
+134,Kimberly,Williams,kimberly.williams@yahoo.com,Design,Design Lead,139973,2016-12-03,Portland,Oregon,45.530384,-122.696247,active
+135,Michael,Perez,michael.perez@outlook.com,Engineering,Software Engineer,126148,2025-01-22,Boston,Massachusetts,42.374713,-71.104986,active
+136,Lisa,Jackson,lisa.jackson@yahoo.com,Operations,Business Analyst,86180,2021-06-03,Denver,Colorado,39.75709,-105.035063,active
+137,Kimberly,Harris,kimberly.harris@yahoo.com,Product,Product Director,190199,2023-03-07,Los Angeles,California,34.098641,-118.23343,active
+138,Daniel,Martin,daniel.martin@outlook.com,Engineering,Data Engineer,157146,2018-03-05,Seattle,Washington,47.595396,-122.322596,inactive
+139,Edward,Rodriguez,edward.rodriguez@outlook.com,Product,Technical Product Manager,217483,2018-02-15,Denver,Colorado,39.788916,-104.949055,active
+140,Lisa,Martin,lisa.martin@gmail.com,Sales,Sales Manager,114997,2023-08-09,San Francisco,California,37.773527,-122.446746,active
+141,Deborah,Wright,deborah.wright@outlook.com,Engineering,Software Engineer,154497,2016-02-05,Miami,Florida,25.715475,-80.208124,active
+142,David,Lopez,david.lopez@outlook.com,Engineering,Engineering Manager,204520,2017-05-11,Seattle,Washington,47.572754,-122.338333,active
+143,Donna,Jackson,donna.jackson@outlook.com,Sales,Account Executive,111050,2017-03-20,Boston,Massachusetts,42.3335,-71.084983,inactive
+144,Carol,Torres,carol.torres@yahoo.com,HR,HR Manager,115381,2020-10-29,Denver,Colorado,39.739491,-104.998434,active
+145,Laura,Taylor,laura.taylor@gmail.com,Engineering,DevOps Engineer,143325,2018-10-25,Seattle,Washington,47.643612,-122.326646,active
+146,Jennifer,Hernandez,jennifer.hernandez@yahoo.com,HR,HR Specialist,104012,2020-12-19,Austin,Texas,30.231935,-97.749353,inactive
+147,Mary,Clark,mary.clark@gmail.com,Engineering,Engineering Manager,170256,2021-07-24,Denver,Colorado,39.727817,-105.032139,active
+148,Ronald,Martinez,ronald.martinez@gmail.com,Product,Product Manager,145133,2025-07-30,Denver,Colorado,39.736445,-104.957189,active
+149,Mary,Taylor,mary.taylor@gmail.com,Design,UX Designer,113154,2016-08-22,Los Angeles,California,34.05708,-118.220977,active
+150,Karen,Davis,karen.davis@gmail.com,Engineering,Staff Engineer,164301,2023-05-02,New York,New York,40.725081,-74.049719,active
+151,Andrew,Thomas,andrew.thomas@outlook.com,Design,UX Designer,99167,2024-05-24,Miami,Florida,25.754624,-80.180319,active
+152,Lisa,Jones,lisa.jones@outlook.com,Product,Product Manager,179054,2019-11-27,Miami,Florida,25.762462,-80.239767,active
+153,Thomas,Johnson,thomas.johnson@yahoo.com,Engineering,Engineering Manager,146610,2017-03-01,Denver,Colorado,39.762494,-104.977474,active
+154,John,Thompson,john.thompson@outlook.com,Sales,Sales Manager,155539,2022-03-18,Seattle,Washington,47.639238,-122.313632,inactive
+155,Robert,Robinson,robert.robinson@gmail.com,Design,Senior UX Designer,116743,2022-09-19,Seattle,Washington,47.576147,-122.377909,inactive
+156,John,Gonzalez,john.gonzalez@yahoo.com,Design,Design Lead,138436,2022-01-01,Austin,Texas,30.22198,-97.727527,active
+157,Melissa,Lewis,melissa.lewis@yahoo.com,HR,HR Business Partner,78897,2022-03-16,Chicago,Illinois,41.87772,-87.630048,inactive
+158,Jennifer,Ramirez,jennifer.ramirez@outlook.com,Design,UX Designer,114754,2016-10-13,Chicago,Illinois,41.882647,-87.647679,active
+159,Joshua,Ramirez,joshua.ramirez@gmail.com,Sales,Sales Manager,130287,2018-04-09,Boston,Massachusetts,42.314336,-71.021896,active
+160,Robert,Sanchez,robert.sanchez@yahoo.com,Operations,Project Manager,101621,2020-04-02,San Francisco,California,37.739178,-122.408643,active
+161,Deborah,White,deborah.white@yahoo.com,Engineering,Software Engineer,140308,2021-09-17,New York,New York,40.666039,-74.040656,active
+162,Andrew,Rodriguez,andrew.rodriguez@outlook.com,Product,Technical Product Manager,152886,2021-11-21,Los Angeles,California,34.030069,-118.197648,active
+163,Kimberly,Davis,kimberly.davis@yahoo.com,Engineering,DevOps Engineer,133392,2017-04-25,Chicago,Illinois,41.898504,-87.658343,active
+164,Linda,Rodriguez,linda.rodriguez@gmail.com,Sales,Enterprise Account Executive,81775,2020-12-08,New York,New York,40.752668,-74.011489,active
+165,Amanda,Jones,amanda.jones@outlook.com,Sales,Sales Manager,120524,2019-12-05,Denver,Colorado,39.774336,-104.969119,inactive
+166,Joseph,Davis,joseph.davis@gmail.com,Marketing,Growth Manager,113102,2017-02-14,Miami,Florida,25.761102,-80.20571,active
+167,Jennifer,Jones,jennifer.jones@yahoo.com,Design,Senior UX Designer,177562,2021-07-17,Portland,Oregon,45.51777,-122.651484,active
+168,Mark,Robinson,mark.robinson@outlook.com,Engineering,Staff Engineer,155646,2020-03-15,Los Angeles,California,34.085105,-118.23857,active
+169,Steven,Brown,steven.brown@gmail.com,Sales,Account Executive,82715,2020-03-12,Chicago,Illinois,41.858512,-87.663603,inactive
+170,Jason,Garcia,jason.garcia@yahoo.com,Engineering,DevOps Engineer,138473,2023-10-21,Austin,Texas,30.312835,-97.765655,active
+171,Michelle,Hernandez,michelle.hernandez@outlook.com,Marketing,Marketing Manager,106318,2019-06-30,Miami,Florida,25.774148,-80.1516,active
+172,Jennifer,Williams,jennifer.williams@outlook.com,Finance,Financial Analyst,134001,2017-05-11,San Francisco,California,37.751366,-122.448319,active
+173,Kenneth,Wright,kenneth.wright@yahoo.com,Marketing,Marketing Manager,125320,2018-10-22,Boston,Massachusetts,42.390569,-71.040401,active
+174,Mark,Clark,mark.clark@yahoo.com,Engineering,Software Engineer,119249,2020-10-18,Seattle,Washington,47.590219,-122.367733,active
+175,William,White,william.white@outlook.com,Product,Product Director,135369,2019-09-16,Chicago,Illinois,41.874747,-87.653053,active
+176,Laura,Flores,laura.flores@yahoo.com,Engineering,Staff Engineer,211122,2023-03-23,Chicago,Illinois,41.909448,-87.586425,active
+177,Steven,Robinson,steven.robinson@yahoo.com,Engineering,Senior Software Engineer,173063,2016-02-24,Boston,Massachusetts,42.319105,-71.069576,active
+178,Patricia,Brown,patricia.brown@yahoo.com,Engineering,DevOps Engineer,146064,2020-06-15,Denver,Colorado,39.777434,-104.974874,active
+179,William,Taylor,william.taylor@outlook.com,Marketing,Marketing Manager,122596,2021-11-26,Chicago,Illinois,41.868158,-87.622772,active
+180,Steven,Lewis,steven.lewis@outlook.com,Marketing,Marketing Manager,144393,2022-11-14,Chicago,Illinois,41.839981,-87.582292,active
+181,Lisa,Martinez,lisa.martinez@gmail.com,HR,Recruiter,108888,2019-04-02,Miami,Florida,25.751839,-80.237775,active
+182,Sandra,Martinez,sandra.martinez@outlook.com,Sales,Enterprise Account Executive,81757,2020-03-23,Miami,Florida,25.744497,-80.180493,active
+183,Nancy,Allen,nancy.allen@outlook.com,Operations,Project Manager,128324,2020-01-14,Portland,Oregon,45.495179,-122.646825,active
+184,Karen,Johnson,karen.johnson@outlook.com,Sales,Enterprise Account Executive,88617,2020-09-07,Portland,Oregon,45.561907,-122.65011,active
+185,Donald,Hernandez,donald.hernandez@outlook.com,Marketing,Marketing Manager,163429,2018-12-14,Portland,Oregon,45.549317,-122.713622,active
+186,Richard,Johnson,richard.johnson@yahoo.com,Engineering,Data Engineer,128245,2022-06-28,Los Angeles,California,34.017343,-118.22465,active
+187,Amanda,Rodriguez,amanda.rodriguez@outlook.com,Sales,Enterprise Account Executive,98982,2023-09-06,San Francisco,California,37.757405,-122.403177,active
+188,Paul,Perez,paul.perez@outlook.com,Product,Senior Product Manager,187286,2022-01-12,Boston,Massachusetts,42.382192,-71.044569,active
+189,Sarah,Scott,sarah.scott@yahoo.com,Marketing,Content Strategist,87320,2023-06-26,New York,New York,40.739917,-73.98551,active
+190,Kimberly,Moore,kimberly.moore@yahoo.com,Design,Design Lead,116930,2024-08-21,Denver,Colorado,39.756862,-105.002331,inactive
+191,John,Jackson,john.jackson@outlook.com,HR,HR Manager,110499,2025-02-13,Austin,Texas,30.282797,-97.718366,active
+192,Brian,Moore,brian.moore@gmail.com,HR,Recruiter,97378,2024-10-12,Miami,Florida,25.735628,-80.236723,inactive
+193,Michael,Clark,michael.clark@yahoo.com,Engineering,Senior Software Engineer,171977,2017-12-17,San Francisco,California,37.801977,-122.468882,active
+194,Donald,Gonzalez,donald.gonzalez@yahoo.com,Finance,Controller,99758,2022-05-28,Boston,Massachusetts,42.37469,-71.018106,active
+195,Anthony,Lopez,anthony.lopez@gmail.com,Marketing,Marketing Manager,145173,2016-08-17,Seattle,Washington,47.574831,-122.3072,active
+196,Karen,Torres,karen.torres@outlook.com,Product,Product Manager,138290,2024-10-20,San Francisco,California,37.82381,-122.41507,active
+197,Richard,Davis,richard.davis@yahoo.com,Operations,Operations Coordinator,85787,2024-03-08,Austin,Texas,30.282029,-97.72124,active
+198,Carol,Gonzalez,carol.gonzalez@gmail.com,Product,Product Director,195801,2019-02-26,Portland,Oregon,45.547899,-122.676872,active
+199,Donald,Lee,donald.lee@gmail.com,Sales,Account Executive,72558,2025-12-06,Seattle,Washington,47.594557,-122.337426,active
+200,Michelle,White,michelle.white@outlook.com,Product,Product Manager,126975,2023-05-11,Austin,Texas,30.263739,-97.777128,active

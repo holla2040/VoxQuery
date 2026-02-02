@@ -1,0 +1,161 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: VoxQuery - Voice-enabled Athena Chat Application
+
+Parameters:
+  AthenaDatabase:
+    Type: String
+    Default: voice_chat_db
+    Description: Athena database name
+
+  AthenaTable:
+    Type: String
+    Default: employees
+    Description: Athena table name
+
+  BedrockModelId:
+    Type: String
+    Default: anthropic.claude-3-sonnet-20240229-v1:0
+    Description: Bedrock model ID for SQL generation
+
+Globals:
+  Function:
+    Timeout: 60
+    MemorySize: 512
+    Runtime: python3.11
+    Architectures:
+      - x86_64
+
+Resources:
+  # S3 Bucket for data and audio
+  DataBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub 'voxquery-data-${AWS::AccountId}'
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      LifecycleConfiguration:
+        Rules:
+          # Clean up voice input audio files after 1 day
+          - Id: CleanupVoiceInput
+            Status: Enabled
+            Prefix: voice-input/
+            ExpirationInDays: 1
+          # Clean up Athena results after 7 days
+          - Id: CleanupAthenaResults
+            Status: Enabled
+            Prefix: athena-results/
+            ExpirationInDays: 7
+      CorsConfiguration:
+        CorsRules:
+          - AllowedHeaders:
+              - '*'
+            AllowedMethods:
+              - GET
+              - PUT
+              - POST
+            AllowedOrigins:
+              - '*'
+            MaxAge: 3000
+
+  # Lambda Function
+  VoxQueryFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: voxquery-handler
+      Handler: handler.handler
+      CodeUri: ../lambda/
+      Description: VoxQuery Lambda handler for voice/text queries
+      Environment:
+        Variables:
+          ATHENA_DATABASE: !Ref AthenaDatabase
+          ATHENA_OUTPUT_LOCATION: !Sub 's3://${DataBucket}/athena-results/'
+          AUDIO_BUCKET: !Ref DataBucket
+          BEDROCK_MODEL_ID: !Ref BedrockModelId
+          AWS_REGION: !Ref AWS::Region
+      Policies:
+        # S3 access for data and audio
+        - S3CrudPolicy:
+            BucketName: !Ref DataBucket
+        # Athena access
+        - Statement:
+            - Effect: Allow
+              Action:
+                - athena:StartQueryExecution
+                - athena:GetQueryExecution
+                - athena:GetQueryResults
+                - athena:StopQueryExecution
+              Resource:
+                - !Sub 'arn:aws:athena:${AWS::Region}:${AWS::AccountId}:workgroup/primary'
+        # Glue access for Athena
+        - Statement:
+            - Effect: Allow
+              Action:
+                - glue:GetDatabase
+                - glue:GetDatabases
+                - glue:GetTable
+                - glue:GetTables
+                - glue:GetPartitions
+              Resource:
+                - !Sub 'arn:aws:glue:${AWS::Region}:${AWS::AccountId}:catalog'
+                - !Sub 'arn:aws:glue:${AWS::Region}:${AWS::AccountId}:database/${AthenaDatabase}'
+                - !Sub 'arn:aws:glue:${AWS::Region}:${AWS::AccountId}:table/${AthenaDatabase}/*'
+        # Bedrock access
+        - Statement:
+            - Effect: Allow
+              Action:
+                - bedrock:InvokeModel
+              Resource:
+                - !Sub 'arn:aws:bedrock:${AWS::Region}::foundation-model/${BedrockModelId}'
+        # Transcribe access
+        - Statement:
+            - Effect: Allow
+              Action:
+                - transcribe:StartTranscriptionJob
+                - transcribe:GetTranscriptionJob
+                - transcribe:DeleteTranscriptionJob
+              Resource: '*'
+      FunctionUrlConfig:
+        AuthType: NONE
+        Cors:
+          AllowCredentials: false
+          AllowHeaders:
+            - '*'
+          AllowMethods:
+            - GET
+            - POST
+            - OPTIONS
+          AllowOrigins:
+            - '*'
+          MaxAge: 86400
+
+  # CloudWatch Log Group
+  VoxQueryLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub '/aws/lambda/${VoxQueryFunction}'
+      RetentionInDays: 14
+
+Outputs:
+  FunctionUrl:
+    Description: Lambda Function URL
+    Value: !GetAtt VoxQueryFunctionUrl.FunctionUrl
+
+  FunctionArn:
+    Description: Lambda Function ARN
+    Value: !GetAtt VoxQueryFunction.Arn
+
+  DataBucketName:
+    Description: S3 Bucket for data and audio
+    Value: !Ref DataBucket
+
+  AthenaDatabase:
+    Description: Athena database name
+    Value: !Ref AthenaDatabase
+
+  Region:
+    Description: AWS Region
+    Value: !Ref AWS::Region
