@@ -4,7 +4,8 @@ import ChatInput from './components/ChatInput';
 import ResultsPanel from './components/ResultsPanel';
 import MapResult from './components/MapResult';
 import ChartResult from './components/ChartResult';
-import { sendTextQuery } from './services/api';
+import PTTButton from './components/PTTButton';
+import { sendTextQuery, sendVoiceQuery } from './services/api';
 import { MAX_CONVERSATION_HISTORY } from './config';
 import './App.css';
 
@@ -18,6 +19,7 @@ function App() {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [isTranscribing, setIsTranscribing] = useState(false);
 
   // Handle text query submission
   const handleSubmit = useCallback(async (question) => {
@@ -83,6 +85,59 @@ function App() {
     setError(null);
   }, []);
 
+  // Handle voice recording completion
+  const handleRecordingComplete = useCallback(async (audioData) => {
+    setIsTranscribing(true);
+    setLoading(true);
+    setError(null);
+
+    try {
+      // Send voice query to backend (transcribes and executes in one call)
+      const response = await sendVoiceQuery(audioData.base64, conversationHistory);
+
+      if (response.success) {
+        // Add user message with transcript
+        const userMessage = {
+          type: 'user',
+          content: `🎤 ${response.transcript}`,
+          timestamp: new Date().toISOString()
+        };
+        setMessages(prev => [...prev, userMessage]);
+
+        // Update result
+        setResult(response);
+
+        // Add assistant message
+        const assistantMessage = {
+          type: 'assistant',
+          content: response.summary || `Found ${response.row_count} results.`,
+          timestamp: new Date().toISOString()
+        };
+        setMessages(prev => [...prev, assistantMessage]);
+
+        // Update conversation history
+        const newHistory = [
+          ...conversationHistory,
+          { question: response.transcript, sql: response.sql }
+        ].slice(-MAX_CONVERSATION_HISTORY);
+        setConversationHistory(newHistory);
+      } else {
+        throw new Error(response.error || 'Voice query failed');
+      }
+    } catch (err) {
+      setError(err.message);
+      const errorMessage = {
+        type: 'error',
+        content: `Error: ${err.message}`,
+        timestamp: new Date().toISOString()
+      };
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
+      setIsTranscribing(false);
+      setLoading(false);
+    }
+  }, [conversationHistory]);
+
   return (
     <div className="app">
       <div className="app-container">
@@ -93,8 +148,14 @@ function App() {
         >
           <ChatInput
             onSubmit={handleSubmit}
-            disabled={loading}
+            disabled={loading || isTranscribing}
             placeholder="Ask a question about employees..."
+            voiceButton={
+              <PTTButton
+                onRecordingComplete={handleRecordingComplete}
+                disabled={loading || isTranscribing}
+              />
+            }
           />
         </ChatPanel>
 
