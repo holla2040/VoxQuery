@@ -605,6 +605,10 @@ body {
   min-height: 400px;
 }
 
+.result-visualization-content .surface-container {
+  min-height: 800px;
+}
+
 /* Result Stats */
 .result-stats {
   padding: 8px 16px;

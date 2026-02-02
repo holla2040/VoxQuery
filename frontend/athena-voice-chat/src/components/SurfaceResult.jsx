@@ -28,11 +28,15 @@ export default function SurfaceResult({ surfaceConfig }) {
     );
   }
 
+  // Create numeric indices for x and y (Plotly surface requires numeric axes)
+  const xIndices = x_values.map((_, i) => i);
+  const yIndices = y_values.map((_, i) => i);
+
   // Plotly surface trace
   const trace = {
     type: 'surface',
-    x: x_values,
-    y: y_values,
+    x: xIndices,
+    y: yIndices,
     z: z_matrix,
     colorscale: 'Viridis',
     contours: {
@@ -43,10 +47,11 @@ export default function SurfaceResult({ surfaceConfig }) {
         project: { z: true }
       }
     },
-    hovertemplate:
-      `${x_column}: %{x}<br>` +
-      `${y_column}: %{y}<br>` +
-      `${z_column}: %{z}<extra></extra>`
+    // Custom hover text since we're using indices
+    text: z_matrix.map((row, yi) =>
+      row.map((_, xi) => `${x_column}: ${x_values[xi]}<br>${y_column}: ${y_values[yi]}`)
+    ),
+    hovertemplate: '%{text}<br>' + `${z_column}: %{z}<extra></extra>`
   };
 
   // Plotly layout with dark theme
@@ -61,7 +66,9 @@ export default function SurfaceResult({ surfaceConfig }) {
           text: x_column,
           font: { color: '#a0a0a0' }
         },
-        tickfont: { color: '#a0a0a0' },
+        tickfont: { color: '#a0a0a0', size: 10 },
+        tickvals: xIndices,
+        ticktext: x_values,
         gridcolor: '#2a2a4a',
         backgroundcolor: '#1a1a2e'
       },
@@ -70,7 +77,9 @@ export default function SurfaceResult({ surfaceConfig }) {
           text: y_column,
           font: { color: '#a0a0a0' }
         },
-        tickfont: { color: '#a0a0a0' },
+        tickfont: { color: '#a0a0a0', size: 10 },
+        tickvals: yIndices,
+        ticktext: y_values,
         gridcolor: '#2a2a4a',
         backgroundcolor: '#1a1a2e'
       },
@@ -107,7 +116,7 @@ export default function SurfaceResult({ surfaceConfig }) {
         layout={layout}
         config={config}
         useResizeHandler
-        style={{ width: '100%', height: '100%', minHeight: '400px' }}
+        style={{ width: '100%', height: '100%', minHeight: '800px' }}
       />
     </div>
   );
