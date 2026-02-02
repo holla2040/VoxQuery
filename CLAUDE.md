@@ -17,7 +17,15 @@ cd frontend/athena-voice-chat
 npm install
 export REACT_APP_API_URL=https://your-lambda-url.lambda-url.us-west-2.on.aws/
 npm start                # Dev server at localhost:3000
-npm run build            # Production build
+npm run build            # Production build for /voxquery/ subdirectory
+```
+
+### Production Deployment (EC2/Apache)
+```bash
+# Build and deploy to server
+cd frontend/athena-voice-chat
+npm run build
+scp -r build/* user@your-server.com:/var/www/html/voxquery/
 ```
 
 ### Testing
@@ -100,6 +108,8 @@ Frontend:
 - **CORS**: Handled entirely by Lambda Function URL config, not in Lambda code. Do not add CORS headers in handler.py.
 - **Model Activation**: First-time Bedrock users must activate Claude Haiku 4.5 via AWS Console → Bedrock → Playgrounds → Chat before Lambda can use it.
 - **AWS_REGION**: Do not set in Lambda environment variables - it's reserved and auto-set by Lambda.
+- **Voice Input**: Requires HTTPS or localhost. Frontend auto-detects browser audio format (WebM, Ogg, MP4, WAV) and sends format to backend for Transcribe.
+- **Browser Compatibility**: Chrome/Firefox work best. Brave requires allowing microphone in Shields settings.
 
 ## Setup Guide
 

@@ -63,7 +63,7 @@ Open http://localhost:3000 in your browser.
 ## Features
 
 - **Text Input**: Natural language queries about employee data
-- **Voice Input**: Push-to-talk voice queries (WebM/Opus)
+- **Voice Input**: Push-to-talk voice queries (auto-detects browser audio format)
 - **Smart Visualizations**:
   - Tables for list data
   - Maps for geographic data (Leaflet)
@@ -197,6 +197,50 @@ aws logs tail /aws/lambda/voxquery-handler --follow
 - **Bedrock Claude**: ~$0.003 per 1K input tokens
 - **Transcribe**: $0.024 per minute
 - **Lambda**: Free tier covers most development usage
+
+## Production Deployment
+
+### Deploy to EC2/Apache
+
+1. **Build the frontend:**
+   ```bash
+   cd frontend/athena-voice-chat
+   npm run build
+   ```
+
+2. **Copy to server:**
+   ```bash
+   scp -r build/* user@your-server.com:/var/www/html/voxquery/
+   ```
+
+3. **Apache configuration** (for SPA routing):
+   ```apache
+   <Directory /var/www/html/voxquery>
+       RewriteEngine On
+       RewriteBase /voxquery/
+       RewriteRule ^index\.html$ - [L]
+       RewriteCond %{REQUEST_FILENAME} !-f
+       RewriteCond %{REQUEST_FILENAME} !-d
+       RewriteRule . /voxquery/index.html [L]
+   </Directory>
+   ```
+
+> **Note:** HTTPS is required for voice input (microphone access).
+
+## Browser Compatibility
+
+| Browser | Voice Support | Notes |
+|---------|--------------|-------|
+| Chrome | Full | Recommended |
+| Firefox | Full | |
+| Brave | Requires setup | Allow mic in Shields settings |
+| Safari | Full | |
+| Edge | Full | |
+
+**Voice requirements:**
+- HTTPS or localhost (secure context)
+- Microphone permission granted
+- Supported audio formats: WebM, Ogg, MP4, WAV
 
 ## Security Notes
 

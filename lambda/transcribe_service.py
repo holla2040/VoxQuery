@@ -35,7 +35,7 @@ def get_transcribe_client():
     return boto3.client("transcribe", region_name=AWS_REGION)
 
 
-def transcribe_audio(audio_base64: str) -> str:
+def transcribe_audio(audio_base64: str, audio_format: str = "audio/webm") -> str:
     """
     Transcribe audio from base64 encoded data.
 
@@ -47,7 +47,8 @@ def transcribe_audio(audio_base64: str) -> str:
     5. Extract and return transcript
 
     Args:
-        audio_base64: Base64 encoded audio data (WebM/Opus format)
+        audio_base64: Base64 encoded audio data
+        audio_format: MIME type of audio (e.g., 'audio/webm', 'audio/ogg')
 
     Returns:
         Transcribed text
@@ -55,9 +56,24 @@ def transcribe_audio(audio_base64: str) -> str:
     if not AUDIO_BUCKET:
         raise TranscriptionError("AUDIO_BUCKET environment variable not set")
 
+    # Map MIME types to file extensions and Transcribe formats
+    format_map = {
+        'audio/webm': ('webm', 'webm'),
+        'audio/webm;codecs=opus': ('webm', 'webm'),
+        'audio/ogg': ('ogg', 'ogg'),
+        'audio/ogg;codecs=opus': ('ogg', 'ogg'),
+        'audio/mp4': ('mp4', 'mp4'),
+        'audio/wav': ('wav', 'wav'),
+        'audio/mpeg': ('mp3', 'mp3'),
+        'audio/mp3': ('mp3', 'mp3'),
+    }
+
+    # Get file extension and transcribe format
+    ext, transcribe_format = format_map.get(audio_format, ('webm', 'webm'))
+
     # Generate unique job ID
     job_id = f"voxquery-{uuid.uuid4().hex[:8]}"
-    s3_key = f"{AUDIO_PREFIX}{job_id}.webm"
+    s3_key = f"{AUDIO_PREFIX}{job_id}.{ext}"
 
     # Decode audio
     try:
@@ -72,7 +88,7 @@ def transcribe_audio(audio_base64: str) -> str:
             Bucket=AUDIO_BUCKET,
             Key=s3_key,
             Body=audio_bytes,
-            ContentType="audio/webm"
+            ContentType=audio_format.split(';')[0]  # Remove codec info
         )
     except ClientError as e:
         raise TranscriptionError(f"Failed to upload audio to S3: {e}")
@@ -81,11 +97,13 @@ def transcribe_audio(audio_base64: str) -> str:
     transcribe = get_transcribe_client()
     s3_uri = f"s3://{AUDIO_BUCKET}/{s3_key}"
 
+    print(f"Starting transcription: format={transcribe_format}, s3_uri={s3_uri}")
+
     try:
         transcribe.start_transcription_job(
             TranscriptionJobName=job_id,
             Media={"MediaFileUri": s3_uri},
-            MediaFormat="webm",
+            MediaFormat=transcribe_format,
             LanguageCode="en-US",
             Settings={
                 "ShowSpeakerLabels": False,

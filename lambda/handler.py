@@ -162,6 +162,7 @@ def handle_voice_query(body: dict) -> dict:
     Expected body:
     {
         "audio_data": "base64-encoded-audio",
+        "audio_format": "audio/webm" // optional, defaults to webm
         "conversation_history": [...] // optional
     }
     """
@@ -172,11 +173,12 @@ def handle_voice_query(body: dict) -> dict:
     if not audio_data:
         return error_response(400, "Missing 'audio_data' field")
 
+    audio_format = body.get("audio_format", "audio/webm")
     conversation_history = body.get("conversation_history", [])
 
     try:
         # Transcribe audio
-        transcript = transcribe_audio(audio_data)
+        transcript = transcribe_audio(audio_data, audio_format)
 
         if not transcript:
             return error_response(400, "Could not transcribe audio")

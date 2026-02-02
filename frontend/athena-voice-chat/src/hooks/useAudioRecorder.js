@@ -43,17 +43,34 @@ export default function useAudioRecorder() {
       });
       streamRef.current = stream;
 
-      // Create MediaRecorder
+      // Try mime types in order of preference for AWS Transcribe compatibility
+      const mimeTypes = [
+        'audio/webm;codecs=opus',
+        'audio/webm',
+        'audio/ogg;codecs=opus',
+        'audio/ogg',
+        'audio/mp4',
+        'audio/wav'
+      ];
+
+      let selectedMimeType = null;
+      for (const mimeType of mimeTypes) {
+        if (MediaRecorder.isTypeSupported(mimeType)) {
+          selectedMimeType = mimeType;
+          console.log('Using audio format:', mimeType);
+          break;
+        }
+      }
+
       const options = {
-        mimeType: AUDIO_CONFIG.mimeType,
         audioBitsPerSecond: AUDIO_CONFIG.audioBitsPerSecond
       };
-
-      // Check if mimeType is supported
-      if (!MediaRecorder.isTypeSupported(options.mimeType)) {
-        // Fall back to default
-        delete options.mimeType;
+      if (selectedMimeType) {
+        options.mimeType = selectedMimeType;
       }
+
+      // Store selected mime type for later use
+      chunksRef.mimeType = selectedMimeType || 'audio/webm';
 
       const mediaRecorder = new MediaRecorder(stream, options);
       mediaRecorderRef.current = mediaRecorder;
@@ -91,9 +108,12 @@ export default function useAudioRecorder() {
 
       mediaRecorder.onstop = async () => {
         try {
+          // Use the mime type that was actually used for recording
+          const actualMimeType = chunksRef.mimeType || 'audio/webm';
+
           // Combine chunks into a single blob
           const blob = new Blob(chunksRef.current, {
-            type: AUDIO_CONFIG.mimeType
+            type: actualMimeType
           });
 
           // Convert to base64
@@ -105,11 +125,17 @@ export default function useAudioRecorder() {
             streamRef.current = null;
           }
 
+          console.log('Recording complete:', {
+            mimeType: actualMimeType,
+            size: blob.size,
+            chunks: chunksRef.current.length
+          });
+
           setState(RecordingState.IDLE);
           resolve({
             blob,
             base64,
-            mimeType: AUDIO_CONFIG.mimeType,
+            mimeType: actualMimeType,
             duration: chunksRef.current.length * 100 // Approximate
           });
 

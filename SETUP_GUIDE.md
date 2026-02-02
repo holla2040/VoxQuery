@@ -203,6 +203,99 @@ cd infrastructure
 sam build && sam deploy --stack-name voxquery --region us-west-2 --capabilities CAPABILITY_IAM --resolve-s3 --no-confirm-changeset
 ```
 
+## Production Deployment (EC2/Apache)
+
+### Build Frontend for Production
+
+```bash
+cd frontend/athena-voice-chat
+
+# Set base path for subdirectory deployment (already configured in package.json)
+npm run build
+```
+
+### Copy to Server
+
+```bash
+# Create directory on server
+ssh user@your-server.com "mkdir -p /var/www/html/voxquery"
+
+# Copy build files
+scp -r build/* user@your-server.com:/var/www/html/voxquery/
+```
+
+### Apache Configuration
+
+Add to your Apache config (or `.htaccess`):
+
+```apache
+<Directory /var/www/html/voxquery>
+    RewriteEngine On
+    RewriteBase /voxquery/
+    RewriteRule ^index\.html$ - [L]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule . /voxquery/index.html [L]
+</Directory>
+```
+
+### Verify HTTPS
+
+Voice input requires HTTPS. Verify with:
+```bash
+curl -sI https://your-domain.com | head -1
+# Should show: HTTP/1.1 200 OK or HTTP/2 200
+```
+
+---
+
+## Voice Troubleshooting
+
+### Issue: Microphone button disabled
+
+**Symptom:** Mic button shows crossed-out icon
+
+**Causes & Fixes:**
+1. **Not HTTPS** - Voice requires secure context (HTTPS or localhost)
+2. **Browser not supported** - Use Chrome, Firefox, or Edge
+3. **mediaDevices unavailable** - Check browser console for errors
+
+### Issue: Permission denied
+
+**Symptom:**
+```
+Failed to start recording: NotAllowedError: Permission denied
+```
+
+**Fixes:**
+1. Click lock icon in address bar → Site settings → Microphone → Allow
+2. For Brave: Click Shields icon → Allow microphone
+3. Check `brave://settings/content/microphone` or `chrome://settings/content/microphone`
+
+### Issue: Transcription fails - invalid audio
+
+**Symptom:**
+```
+Voice query processing failed: Transcription failed: The data in your input media file isn't valid
+```
+
+**Cause:** Browser audio format not compatible with AWS Transcribe
+
+**Fix:** The app auto-detects supported formats (WebM, Ogg, MP4, WAV). Check browser console for:
+```
+Using audio format: audio/webm;codecs=opus
+```
+
+If no format is detected, try a different browser (Chrome recommended).
+
+### Issue: Voice works on localhost but not production
+
+**Cause:** Production site not using HTTPS
+
+**Fix:** Ensure your domain has valid SSL certificate and is accessed via `https://`
+
+---
+
 ## Cleanup
 
 To delete all resources:

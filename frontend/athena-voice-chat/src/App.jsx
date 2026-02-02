@@ -93,7 +93,7 @@ function App() {
 
     try {
       // Send voice query to backend (transcribes and executes in one call)
-      const response = await sendVoiceQuery(audioData.base64, conversationHistory);
+      const response = await sendVoiceQuery(audioData.base64, conversationHistory, audioData.mimeType);
 
       if (response.success) {
         // Add user message with transcript

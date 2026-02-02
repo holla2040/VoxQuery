@@ -34,9 +34,10 @@ export async function sendTextQuery(question, conversationHistory = []) {
  * Send a voice query to the backend
  * @param {string} audioBase64 - Base64 encoded audio data
  * @param {Array} conversationHistory - Previous conversation exchanges
+ * @param {string} mimeType - Audio mime type (e.g., 'audio/webm;codecs=opus')
  * @returns {Promise<Object>} Query results with transcript
  */
-export async function sendVoiceQuery(audioBase64, conversationHistory = []) {
+export async function sendVoiceQuery(audioBase64, conversationHistory = [], mimeType = 'audio/webm') {
   const response = await fetch(`${API_BASE_URL}/voice-query`, {
     method: 'POST',
     headers: {
@@ -44,6 +45,7 @@ export async function sendVoiceQuery(audioBase64, conversationHistory = []) {
     },
     body: JSON.stringify({
       audio_data: audioBase64,
+      audio_format: mimeType,
       conversation_history: conversationHistory,
     }),
   });
