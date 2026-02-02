@@ -15,7 +15,7 @@ export const RecordingState = {
  * Custom hook for audio recording
  *
  * Provides push-to-talk functionality using MediaRecorder.
- * Records in WebM/Opus format for compatibility with AWS Transcribe.
+ * Prefers OGG/Opus format for AWS Transcribe compatibility.
  */
 export default function useAudioRecorder() {
   const [state, setState] = useState(RecordingState.IDLE);
@@ -44,13 +44,14 @@ export default function useAudioRecorder() {
       streamRef.current = stream;
 
       // Try mime types in order of preference for AWS Transcribe compatibility
+      // Note: Transcribe supports ogg, mp4, wav, mp3, flac, amr - NOT webm
       const mimeTypes = [
-        'audio/webm;codecs=opus',
-        'audio/webm',
         'audio/ogg;codecs=opus',
         'audio/ogg',
         'audio/mp4',
-        'audio/wav'
+        'audio/wav',
+        'audio/webm;codecs=opus',  // Fallback - may not work with Transcribe
+        'audio/webm'
       ];
 
       let selectedMimeType = null;

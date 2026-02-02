@@ -15,12 +15,12 @@ export default function ResultsPanel({
 }) {
   const scrollRef = useRef(null);
 
-  // Auto-scroll to bottom when new results are added
+  // Auto-scroll to bottom when query is sent or new results arrive
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
-  }, [resultHistory]);
+  }, [resultHistory, loading]);
 
   // Render a single result item
   const renderResultItem = (result, index) => {
