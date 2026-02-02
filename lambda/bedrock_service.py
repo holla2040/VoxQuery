@@ -9,7 +9,7 @@ import boto3
 from botocore.exceptions import ClientError
 
 # Configuration
-MODEL_ID = os.environ.get("BEDROCK_MODEL_ID", "anthropic.claude-3-sonnet-20240229-v1:0")
+MODEL_ID = os.environ.get("BEDROCK_MODEL_ID", "anthropic.claude-haiku-4-5-20251001-v1:0")
 MAX_TOKENS = 2048
 
 # Schema definition for the employees table

@@ -11,11 +11,8 @@ from athena_service import execute_query, AthenaQueryError
 from bedrock_service import generate_sql, generate_summary, fix_failed_query
 from response_classifier import classify_response, get_chart_config, get_map_config
 
-# CORS headers for Lambda Function URL
-CORS_HEADERS = {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+# Response headers (CORS handled by Lambda Function URL config)
+RESPONSE_HEADERS = {
     "Content-Type": "application/json"
 }
 
@@ -29,7 +26,7 @@ def handler(event, context):
     if event.get("requestContext", {}).get("http", {}).get("method") == "OPTIONS":
         return {
             "statusCode": 200,
-            "headers": CORS_HEADERS,
+            "headers": RESPONSE_HEADERS,
             "body": ""
         }
 
@@ -221,7 +218,7 @@ def success_response(data: dict) -> dict:
     """Build success response."""
     return {
         "statusCode": 200,
-        "headers": CORS_HEADERS,
+        "headers": RESPONSE_HEADERS,
         "body": json.dumps(data)
     }
 
@@ -230,7 +227,7 @@ def error_response(status_code: int, message: str) -> dict:
     """Build error response."""
     return {
         "statusCode": status_code,
-        "headers": CORS_HEADERS,
+        "headers": RESPONSE_HEADERS,
         "body": json.dumps({
             "success": False,
             "error": message

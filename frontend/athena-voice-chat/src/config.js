@@ -3,7 +3,7 @@
  */
 
 // Lambda Function URL - update after deployment
-export const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+export const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://gfnzz6ybdekl3ngmycq4u2rzx40onfpw.lambda-url.us-west-2.on.aws';
 
 // Feature flags
 export const FEATURES = {

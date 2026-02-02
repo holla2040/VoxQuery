@@ -15,14 +15,14 @@ Parameters:
 
   BedrockModelId:
     Type: String
-    Default: anthropic.claude-3-sonnet-20240229-v1:0
+    Default: anthropic.claude-haiku-4-5-20251001-v1:0
     Description: Bedrock model ID for SQL generation
 
 Globals:
   Function:
     Timeout: 60
     MemorySize: 512
-    Runtime: python3.11
+    Runtime: python3.10
     Architectures:
       - x86_64
 
@@ -75,7 +75,6 @@ Resources:
           ATHENA_OUTPUT_LOCATION: !Sub 's3://${DataBucket}/athena-results/'
           AUDIO_BUCKET: !Ref DataBucket
           BEDROCK_MODEL_ID: !Ref BedrockModelId
-          AWS_REGION: !Ref AWS::Region
       Policies:
         # S3 access for data and audio
         - S3CrudPolicy:
@@ -108,8 +107,17 @@ Resources:
             - Effect: Allow
               Action:
                 - bedrock:InvokeModel
-              Resource:
-                - !Sub 'arn:aws:bedrock:${AWS::Region}::foundation-model/${BedrockModelId}'
+                - bedrock:InvokeModelWithResponseStream
+              Resource: '*'
+        # AWS Marketplace permissions for Bedrock model auto-subscription
+        - Statement:
+            - Effect: Allow
+              Action:
+                - aws-marketplace:ViewSubscriptions
+                - aws-marketplace:Subscribe
+                - aws-marketplace:Unsubscribe
+                - aws-marketplace:GetEntitlements
+              Resource: '*'
         # Transcribe access
         - Statement:
             - Effect: Allow
@@ -127,7 +135,6 @@ Resources:
           AllowMethods:
             - GET
             - POST
-            - OPTIONS
           AllowOrigins:
             - '*'
           MaxAge: 86400

@@ -90,8 +90,17 @@ Lambda:
 - `ATHENA_DATABASE`: Database name (default: voice_chat_db)
 - `ATHENA_OUTPUT_LOCATION`: S3 path for results
 - `AUDIO_BUCKET`: S3 bucket for voice uploads
-- `BEDROCK_MODEL_ID`: Model for SQL generation
-- `AWS_REGION`: us-west-2
+- `BEDROCK_MODEL_ID`: Model for SQL generation (default: anthropic.claude-haiku-4-5-20251001-v1:0)
 
 Frontend:
 - `REACT_APP_API_URL`: Lambda Function URL
+
+## Important Notes
+
+- **CORS**: Handled entirely by Lambda Function URL config, not in Lambda code. Do not add CORS headers in handler.py.
+- **Model Activation**: First-time Bedrock users must activate Claude Haiku 4.5 via AWS Console → Bedrock → Playgrounds → Chat before Lambda can use it.
+- **AWS_REGION**: Do not set in Lambda environment variables - it's reserved and auto-set by Lambda.
+
+## Setup Guide
+
+See [SETUP_GUIDE.md](SETUP_GUIDE.md) for complete deployment instructions and troubleshooting.

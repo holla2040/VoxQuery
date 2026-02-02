@@ -23,7 +23,9 @@ Voice-enabled Athena chat application with text/voice input, SQL generation via 
 - AWS CLI configured with appropriate credentials
 - SAM CLI installed (`pip install aws-sam-cli`)
 - Node.js 18+ and npm
-- Python 3.11+
+- Python 3.10+
+
+> **Note:** For detailed setup instructions and troubleshooting, see [SETUP_GUIDE.md](SETUP_GUIDE.md).
 
 ## Quick Start
 
@@ -121,7 +123,7 @@ VoxQuery/
 | `ATHENA_DATABASE` | voice_chat_db | Athena database name |
 | `ATHENA_OUTPUT_LOCATION` | - | S3 path for query results |
 | `AUDIO_BUCKET` | - | S3 bucket for voice audio |
-| `BEDROCK_MODEL_ID` | anthropic.claude-3-sonnet-20240229-v1:0 | Bedrock model |
+| `BEDROCK_MODEL_ID` | anthropic.claude-haiku-4-5-20251001-v1:0 | Claude Haiku 4.5 |
 | `AWS_REGION` | us-west-2 | AWS region |
 
 ### Frontend Config
