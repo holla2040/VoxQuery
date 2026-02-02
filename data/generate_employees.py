@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Generate mock employee data for VoxQuery demo.
-Creates 200 employees with realistic salary/location distributions.
+Creates 1000 employees with realistic salary/location distributions.
 """
 
 import csv
@@ -17,18 +17,73 @@ except ImportError:
     USE_FAKER = False
     print("Warning: faker not installed. Using basic random generation.")
 
-# 10 US cities with realistic lat/lon coordinates (with slight clustering)
+# 50 US cities with realistic lat/lon coordinates (major metros + small towns)
 CITIES = {
-    "San Francisco": {"state": "California", "lat": 37.7749, "lon": -122.4194},
-    "Los Angeles": {"state": "California", "lat": 34.0522, "lon": -118.2437},
-    "Seattle": {"state": "Washington", "lat": 47.6062, "lon": -122.3321},
-    "New York": {"state": "New York", "lat": 40.7128, "lon": -74.0060},
-    "Austin": {"state": "Texas", "lat": 30.2672, "lon": -97.7431},
-    "Denver": {"state": "Colorado", "lat": 39.7392, "lon": -104.9903},
-    "Chicago": {"state": "Illinois", "lat": 41.8781, "lon": -87.6298},
-    "Boston": {"state": "Massachusetts", "lat": 42.3601, "lon": -71.0589},
-    "Miami": {"state": "Florida", "lat": 25.7617, "lon": -80.1918},
-    "Portland": {"state": "Oregon", "lat": 45.5152, "lon": -122.6784},
+    # Major metros (original 10)
+    "San Francisco": {"state": "California", "lat": 37.7749, "lon": -122.4194, "weight": 3},
+    "Los Angeles": {"state": "California", "lat": 34.0522, "lon": -118.2437, "weight": 3},
+    "Seattle": {"state": "Washington", "lat": 47.6062, "lon": -122.3321, "weight": 3},
+    "New York": {"state": "New York", "lat": 40.7128, "lon": -74.0060, "weight": 3},
+    "Austin": {"state": "Texas", "lat": 30.2672, "lon": -97.7431, "weight": 3},
+    "Denver": {"state": "Colorado", "lat": 39.7392, "lon": -104.9903, "weight": 3},
+    "Chicago": {"state": "Illinois", "lat": 41.8781, "lon": -87.6298, "weight": 3},
+    "Boston": {"state": "Massachusetts", "lat": 42.3601, "lon": -71.0589, "weight": 3},
+    "Miami": {"state": "Florida", "lat": 25.7617, "lon": -80.1918, "weight": 3},
+    "Portland": {"state": "Oregon", "lat": 45.5152, "lon": -122.6784, "weight": 3},
+
+    # Northeast small towns
+    "Burlington": {"state": "Vermont", "lat": 44.4759, "lon": -73.2121, "weight": 1},
+    "Montpelier": {"state": "Vermont", "lat": 44.2601, "lon": -72.5754, "weight": 1},
+    "Portsmouth": {"state": "New Hampshire", "lat": 43.0718, "lon": -70.7626, "weight": 1},
+    "Portland ME": {"state": "Maine", "lat": 43.6591, "lon": -70.2568, "weight": 1},
+    "Ithaca": {"state": "New York", "lat": 42.4440, "lon": -76.5019, "weight": 1},
+    "Northampton": {"state": "Massachusetts", "lat": 42.3251, "lon": -72.6412, "weight": 1},
+
+    # Southeast small towns
+    "Asheville": {"state": "North Carolina", "lat": 35.5951, "lon": -82.5515, "weight": 1},
+    "Savannah": {"state": "Georgia", "lat": 32.0809, "lon": -81.0912, "weight": 1},
+    "Charleston": {"state": "South Carolina", "lat": 32.7765, "lon": -79.9311, "weight": 1},
+    "Key West": {"state": "Florida", "lat": 24.5551, "lon": -81.7800, "weight": 1},
+    "Chattanooga": {"state": "Tennessee", "lat": 35.0456, "lon": -85.3097, "weight": 1},
+    "Greenville": {"state": "South Carolina", "lat": 34.8526, "lon": -82.3940, "weight": 1},
+
+    # Midwest small towns
+    "Madison": {"state": "Wisconsin", "lat": 43.0731, "lon": -89.4012, "weight": 1},
+    "Ann Arbor": {"state": "Michigan", "lat": 42.2808, "lon": -83.7430, "weight": 1},
+    "Duluth": {"state": "Minnesota", "lat": 46.7867, "lon": -92.1005, "weight": 1},
+    "Iowa City": {"state": "Iowa", "lat": 41.6611, "lon": -91.5302, "weight": 1},
+    "Lawrence": {"state": "Kansas", "lat": 38.9717, "lon": -95.2353, "weight": 1},
+    "Fargo": {"state": "North Dakota", "lat": 46.8772, "lon": -96.7898, "weight": 1},
+
+    # Southwest small towns
+    "Santa Fe": {"state": "New Mexico", "lat": 35.6870, "lon": -105.9378, "weight": 1},
+    "Sedona": {"state": "Arizona", "lat": 34.8697, "lon": -111.7610, "weight": 1},
+    "Flagstaff": {"state": "Arizona", "lat": 35.1983, "lon": -111.6513, "weight": 1},
+    "Taos": {"state": "New Mexico", "lat": 36.4072, "lon": -105.5731, "weight": 1},
+    "Tucson": {"state": "Arizona", "lat": 32.2226, "lon": -110.9747, "weight": 1},
+    "El Paso": {"state": "Texas", "lat": 31.7619, "lon": -106.4850, "weight": 1},
+
+    # Mountain small towns
+    "Bozeman": {"state": "Montana", "lat": 45.6770, "lon": -111.0429, "weight": 1},
+    "Boulder": {"state": "Colorado", "lat": 40.0150, "lon": -105.2705, "weight": 1},
+    "Park City": {"state": "Utah", "lat": 40.6461, "lon": -111.4980, "weight": 1},
+    "Jackson": {"state": "Wyoming", "lat": 43.4799, "lon": -110.7624, "weight": 1},
+    "Missoula": {"state": "Montana", "lat": 46.8721, "lon": -113.9940, "weight": 1},
+    "Durango": {"state": "Colorado", "lat": 37.2753, "lon": -107.8801, "weight": 1},
+
+    # Pacific small towns
+    "Bend": {"state": "Oregon", "lat": 44.0582, "lon": -121.3153, "weight": 1},
+    "Santa Cruz": {"state": "California", "lat": 36.9741, "lon": -122.0308, "weight": 1},
+    "Eureka": {"state": "California", "lat": 40.8021, "lon": -124.1637, "weight": 1},
+    "Olympia": {"state": "Washington", "lat": 47.0379, "lon": -122.9007, "weight": 1},
+    "Bellingham": {"state": "Washington", "lat": 48.7519, "lon": -122.4787, "weight": 1},
+    "Santa Barbara": {"state": "California", "lat": 34.4208, "lon": -119.6982, "weight": 1},
+
+    # Additional diversity cities
+    "Reno": {"state": "Nevada", "lat": 39.5296, "lon": -119.8138, "weight": 1},
+    "Boise": {"state": "Idaho", "lat": 43.6150, "lon": -116.2023, "weight": 1},
+    "Salt Lake City": {"state": "Utah", "lat": 40.7608, "lon": -111.8910, "weight": 2},
+    "Albuquerque": {"state": "New Mexico", "lat": 35.0844, "lon": -106.6504, "weight": 2},
 }
 
 # Departments with base salary ranges
@@ -103,8 +158,9 @@ def generate_employee(employee_id):
     # Select job title
     title = random.choice(JOB_TITLES[department])
 
-    # Select city
-    city = random.choice(list(CITIES.keys()))
+    # Select city based on weights (metros get more employees than small towns)
+    city_items = [(city, info["weight"]) for city, info in CITIES.items()]
+    city = weighted_choice(city_items)
     city_info = CITIES[city]
 
     # Generate name
@@ -161,10 +217,10 @@ def generate_employee(employee_id):
 
 
 def main():
-    """Generate 200 employees and save to CSV."""
+    """Generate 1000 employees and save to CSV."""
     random.seed(42)  # For reproducibility
 
-    employees = [generate_employee(i + 1) for i in range(200)]
+    employees = [generate_employee(i + 1) for i in range(1000)]
 
     # Write to CSV
     output_file = "employees.csv"
