@@ -174,14 +174,12 @@ function App() {
             placeholder="Ask a question about employees..."
             queryHistory={queryHistory}
             onAddToHistory={addToQueryHistory}
-            /* Voice button temporarily disabled
             voiceButton={
               <PTTButton
                 onRecordingComplete={handleRecordingComplete}
                 disabled={loading || isTranscribing}
               />
             }
-            */
           />
         </ChatPanel>
 
